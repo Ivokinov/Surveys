@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html lang="bg">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Проучване за бебешки и детски дрехи</title>
+<meta content="Помогнете ни да създадем по-удобна платформа за бебешки и детски дрехи и артикули втора употреба." name="description"/>
+<style>
+    :root {
+      --bg: #fff8f2;
+      --card: #ffffff;
+      --text: #252525;
+      --muted: #6f6f6f;
+      --primary: #f28b82;
+      --primary-dark: #d96b62;
+      --border: #eaded6;
+      --soft: #fff1ea;
+      --success: #247a4d;
+      --danger: #b23b3b;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #ffe7dd 0, transparent 32%), var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 28px 16px 48px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 28px 18px 22px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--soft);
+      color: #8a4b3f;
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(28px, 6vw, 46px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    .subtitle {
+      margin: 0 auto;
+      max-width: 660px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    form {
+      background: rgba(255,255,255,0.88);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 22px;
+      box-shadow: 0 18px 45px rgba(102, 65, 45, 0.09);
+      backdrop-filter: blur(8px);
+    }
+
+    .question {
+      padding: 22px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .question:last-of-type { border-bottom: none; }
+
+    .question-title {
+      display: block;
+      font-weight: 750;
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 14px;
+      margin: -6px 0 12px;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px 13px;
+      cursor: pointer;
+      transition: border-color .18s ease, background .18s ease, transform .18s ease;
+    }
+
+    .option:hover {
+      border-color: var(--primary);
+      background: #fffafa;
+      transform: translateY(-1px);
+    }
+
+    input[type="radio"], input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--primary-dark);
+      flex: 0 0 auto;
+    }
+
+    input[type="text"], textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px 14px;
+      font: inherit;
+      background: #fff;
+      outline: none;
+    }
+
+    input[type="text"]:focus, textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(242, 139, 130, 0.15);
+    }
+
+    textarea { min-height: 90px; resize: vertical; }
+
+    .actions {
+      padding-top: 22px;
+      display: grid;
+      gap: 12px;
+    }
+
+    button {
+      appearance: none;
+      border: 0;
+      border-radius: 18px;
+      background: var(--primary);
+      color: white;
+      padding: 15px 18px;
+      font-weight: 800;
+      font-size: 17px;
+      cursor: pointer;
+      transition: background .18s ease, transform .18s ease;
+    }
+
+    button:hover { background: var(--primary-dark); transform: translateY(-1px); }
+    button:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+    .privacy {
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+      margin: 0;
+    }
+
+    .status {
+      display: none;
+      border-radius: 16px;
+      padding: 13px 14px;
+      font-weight: 650;
+      text-align: center;
+    }
+
+    .status.success {
+      display: block;
+      background: #eaf8f0;
+      color: var(--success);
+      border: 1px solid #bfe8d0;
+    }
+
+    .status.error {
+      display: block;
+      background: #fff0f0;
+      color: var(--danger);
+      border: 1px solid #f2c5c5;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 18px 0 0;
+    }
+
+    @media (min-width: 720px) {
+      .options.two-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      form { padding: 28px 34px; }
+    }
+  </style>
+</head>
+<body>
+<main class="page">
+<section class="hero">
+<div class="badge">👶 Анонимно проучване · около 2 минути</div>
+<h1>Помогнете ни да създадем по-удобна платформа за бебешки и детски артикули</h1>
+<p class="subtitle">
+        Искаме да разберем как хората купуват и продават бебешки/детски дрехи, колички, столчета, играчки и други артикули втора употреба.
+      </p>
+</section>
+<form id="surveyForm">
+<input name="access_key" type="hidden" value="43e7930b-946f-422e-98bf-3fe8c67cfddc"/>
+<input name="subject" type="hidden" value="Нов отговор от проучване за бебешки артикули"/>
+<input name="from_name" type="hidden" value="Dreshki Survey"/>
+<input autocomplete="off" name="botcheck" style="display:none" tabindex="-1" type="checkbox"/>
+<div class="question">
+<span class="question-title">1. Колко често купувате бебешки или детски дрехи/артикули втора употреба?</span>
+<div class="options">
+<label class="option"><input name="1. Честота на купуване" required="" type="radio" value="Почти всяка седмица"/>Почти всяка седмица</label>
+<label class="option"><input name="1. Честота на купуване" type="radio" value="Няколко пъти месечно"/>Няколко пъти месечно</label>
+<label class="option"><input name="1. Честота на купуване" type="radio" value="Веднъж месечно"/>Веднъж месечно</label>
+<label class="option"><input name="1. Честота на купуване" type="radio" value="По-рядко"/>По-рядко</label>
+<label class="option"><input name="1. Честота на купуване" type="radio" value="Не купувам"/>Не купувам</label>
+</div>
+</div>
+<div class="question">
+<span class="question-title">2. Колко често продавате бебешки или детски дрехи/артикули втора употреба?</span>
+<div class="options">
+<label class="option"><input name="2. Честота на продаване" required="" type="radio" value="Почти всяка седмица"/>Почти всяка седмица</label>
+<label class="option"><input name="2. Честота на продаване" type="radio" value="Няколко пъти месечно"/>Няколко пъти месечно</label>
+<label class="option"><input name="2. Честота на продаване" type="radio" value="Веднъж месечно"/>Веднъж месечно</label>
+<label class="option"><input name="2. Честота на продаване" type="radio" value="По-рядко"/>По-рядко</label>
+<label class="option"><input name="2. Честота на продаване" type="radio" value="Не продавам"/>Не продавам</label>
+</div>
+</div>
+<div class="question">
+<span class="question-title">3. Какви артикули най-често купувате или продавате?</span>
+<p class="hint">Може да изберете повече от един отговор.</p>
+<div class="options two-cols">
+<label class="option"><input name="3. Видове артикули" type="checkbox" value="Бебешки дрехи"/>Бебешки дрехи</label>
+<label class="option"><input name="3. Видове артикули" type="checkbox" value="Детски дрехи"/>Детски дрехи</label>
+<label class="option"><input name="3. Видове артикули" type="checkbox" value="Обувки"/>Обувки</label>
+<label class="option"><input name="3. Видове артикули" type="checkbox" value="Играчки"/>Играчки</label>
+<label class="option"><input name="3. Видове артикули" type="checkbox" value="Колички"/>Колички</label>
+<label class="option"><input name="3. Видове артикули" type="checkbox" value="Столчета за кола"/>Столчета за кола</label>
+<label class="option"><input name="3. Видове артикули" type="checkbox" value="Кошари и легълца"/>Кошари и легълца</label>
+<label class="option"><input name="3. Видове артикули" type="checkbox" value="Аксесоари за хранене"/>Аксесоари за хранене</label>
+<label class="option"><input name="3. Видове артикули" type="checkbox" value="Общи стоки за дома"/>Общи стоки за дома</label>
+<label class="option"><input name="3. Видове артикули" type="checkbox" value="Друго"/>Друго</label>
+</div><input name="other_details_1" placeholder="Напишете тук..." style="margin-top:8px;margin-left:24px;padding:10px;width:85%;border-radius:8px;border:1px solid #ccc;display:block;" type="text"/>
+</div>
+<div class="question">
+<span class="question-title">4. Кои платформи използвате най-често?</span>
+<p class="hint">Може да изберете повече от един отговор.</p>
+<div class="options two-cols">
+<label class="option"><input name="4. Използвани платформи" type="checkbox" value="Facebook групи"/>Facebook групи</label>
+<label class="option"><input name="4. Използвани платформи" type="checkbox" value="OLX"/>OLX</label>
+<label class="option"><input name="4. Използвани платформи" type="checkbox" value="Instagram"/>Instagram</label>
+<label class="option"><input name="4. Използвани платформи" type="checkbox" value="Bazar"/>Bazar</label>
+<label class="option"><input name="4. Използвани платформи" type="checkbox" value="Vinted"/>Vinted</label>
+<label class="option"><input name="4. Използвани платформи" type="checkbox" value="Remixshop"/>Remixshop</label>
+<label class="option"><input name="4. Използвани платформи" type="checkbox" value="Не използвам такива платформи"/>Не използвам такива платформи</label>
+<label class="option"><input name="4. Използвани платформи" type="checkbox" value="Друго"/>Друго</label>
+</div><input name="other_details_2" placeholder="Напишете тук..." style="margin-top:8px;margin-left:24px;padding:10px;width:85%;border-radius:8px;border:1px solid #ccc;display:block;" type="text"/>
+</div>
+<div class="question">
+<span class="question-title">5. Какво най-много ви дразни в сегашните платформи?</span>
+<p class="hint">Може да изберете повече от един отговор.</p>
+<div class="options two-cols">
+<label class="option"><input name="5. Основни проблеми" type="checkbox" value="Трудно намиране на подходящи артикули"/>Трудно намиране на подходящи артикули</label>
+<label class="option"><input name="5. Основни проблеми" type="checkbox" value="Липса на добри филтри"/>Липса на добри филтри</label>
+<label class="option"><input name="5. Основни проблеми" type="checkbox" value="Недостатъчно информация за състоянието"/>Недостатъчно информация за състоянието</label>
+<label class="option"><input name="5. Основни проблеми" type="checkbox" value="Няма доверие в продавачите"/>Няма доверие в продавачите</label>
+<label class="option"><input name="5. Основни проблеми" type="checkbox" value="Трудна комуникация"/>Трудна комуникация</label>
+<label class="option"><input name="5. Основни проблеми" type="checkbox" value="Прекалено хаотични обяви"/>Прекалено хаотични обяви</label>
+<label class="option"><input name="5. Основни проблеми" type="checkbox" value="Фалшиви или подвеждащи обяви"/>Фалшиви или подвеждащи обяви</label>
+<label class="option"><input name="5. Основни проблеми" type="checkbox" value="Бавен отговор от продавачи"/>Бавен отговор от продавачи</label>
+<label class="option"><input name="5. Основни проблеми" type="checkbox" value="Трудно търсене по размер/възраст"/>Трудно търсене по размер/възраст</label>
+<label class="option"><input name="5. Основни проблеми" type="checkbox" value="Друго"/>Друго</label>
+</div><input name="other_details_3" placeholder="Напишете тук..." style="margin-top:8px;margin-left:24px;padding:10px;width:85%;border-radius:8px;border:1px solid #ccc;display:block;" type="text"/>
+</div>
+<div class="question">
+<span class="question-title">6. Кои функционалности биха били най-важни за вас?</span>
+<p class="hint">Може да изберете повече от един отговор.</p>
+<div class="options two-cols">
+<label class="option"><input name="6. Важни функционалности" type="checkbox" value="Филтри по възраст и размер"/>Филтри по възраст и размер</label>
+<label class="option"><input name="6. Важни функционалности" type="checkbox" value="По-добро търсене"/>По-добро търсене</label>
+<label class="option"><input name="6. Важни функционалности" type="checkbox" value="Рейтинг и ревюта на продавачи"/>Рейтинг и ревюта на продавачи</label>
+<label class="option"><input name="6. Важни функционалности" type="checkbox" value="Проверени продавачи"/>Проверени продавачи</label>
+<label class="option"><input name="6. Важни функционалности" type="checkbox" value="По-лесен чат"/>По-лесен чат</label>
+<label class="option"><input name="6. Важни функционалности" type="checkbox" value="Любими продавачи"/>Любими продавачи</label>
+<label class="option"><input name="6. Важни функционалности" type="checkbox" value="По-добра организация на обявите"/>По-добра организация на обявите</label>
+<label class="option"><input name="6. Важни функционалности" type="checkbox" value="Секции по категории"/>Секции по категории</label>
+<label class="option"><input name="6. Важни функционалности" type="checkbox" value="Препоръки за подходящи артикули"/>Препоръки за подходящи артикули</label>
+<label class="option"><input name="6. Важни функционалности" type="checkbox" value="Друго"/>Друго</label>
+</div><input name="other_details_4" placeholder="Напишете тук..." style="margin-top:8px;margin-left:24px;padding:10px;width:85%;border-radius:8px;border:1px solid #ccc;display:block;" type="text"/>
+</div>
+<div class="question">
+<span class="question-title">7. Бихте ли имали повече доверие на продавач с рейтинг и история на успешни продажби?</span>
+<div class="options">
+<label class="option"><input name="7. Доверие към рейтинг" required="" type="radio" value="Да"/>Да</label>
+<label class="option"><input name="7. Доверие към рейтинг" type="radio" value="По-скоро да"/>По-скоро да</label>
+<label class="option"><input name="7. Доверие към рейтинг" type="radio" value="Неутрално"/>Неутрално</label>
+<label class="option"><input name="7. Доверие към рейтинг" type="radio" value="По-скоро не"/>По-скоро не</label>
+<label class="option"><input name="7. Доверие към рейтинг" type="radio" value="Не"/>Не</label>
+</div>
+</div>
+<div class="question">
+<span class="question-title">8. Бихте ли използвали приложение специално за бебешки и детски дрехи/артикули?</span>
+<div class="options">
+<label class="option"><input name="8. Интерес към приложение" required="" type="radio" value="Да"/>Да</label>
+<label class="option"><input name="8. Интерес към приложение" type="radio" value="Може би"/>Може би</label>
+<label class="option"><input name="8. Интерес към приложение" type="radio" value="Не"/>Не</label>
+</div>
+</div>
+<div class="question">
+<span class="question-title">9. Какво би ви накарало да преминете към нова платформа?</span>
+<p class="hint">Може да изберете повече от един отговор.</p>
+<div class="options two-cols">
+<label class="option"><input name="9. Причини за преминаване" type="checkbox" value="По-добра организация"/>По-добра организация</label>
+<label class="option"><input name="9. Причини за преминаване" type="checkbox" value="Повече доверие в продавачите"/>Повече доверие в продавачите</label>
+<label class="option"><input name="9. Причини за преминаване" type="checkbox" value="По-добри филтри"/>По-добри филтри</label>
+<label class="option"><input name="9. Причини за преминаване" type="checkbox" value="По-бързи продажби"/>По-бързи продажби</label>
+<label class="option"><input name="9. Причини за преминаване" type="checkbox" value="По-лесна комуникация"/>По-лесна комуникация</label>
+<label class="option"><input name="9. Причини за преминаване" type="checkbox" value="По-малко spam и хаос"/>По-малко spam и хаос</label>
+<label class="option"><input name="9. Причини за преминаване" type="checkbox" value="По-добро mobile приложение"/>По-добро mobile приложение</label>
+<label class="option"><input name="9. Причини за преминаване" type="checkbox" value="По-добри категории за бебешки артикули"/>По-добри категории за бебешки артикули</label>
+<label class="option"><input name="9. Причини за преминаване" type="checkbox" value="Друго"/>Друго</label>
+</div><input name="other_details_5" placeholder="Напишете тук..." style="margin-top:8px;margin-left:24px;padding:10px;width:85%;border-radius:8px;border:1px solid #ccc;display:block;" type="text"/>
+</div>
+<div class="question">
+<span class="question-title">10. Бихте ли платили малка такса за публикуване на обява, ако платформата ви помага да продавате по-лесно?</span>
+<div class="options">
+<label class="option"><input name="10. Готовност за плащане" required="" type="radio" value="Да"/>Да</label>
+<label class="option"><input name="10. Готовност за плащане" type="radio" value="Може би"/>Може би</label>
+<label class="option"><input name="10. Готовност за плащане" type="radio" value="Не"/>Не</label>
+</div>
+</div>
+<div class="question">
+<span class="question-title">11. Кой модел ви изглежда най-приемлив?</span>
+<div class="options">
+<label class="option"><input name="11. Предпочитан модел" required="" type="radio" value="Безплатни обяви + платени boost-ове"/>Безплатни обяви + платени boost-ове</label>
+<label class="option"><input name="11. Предпочитан модел" type="radio" value="Първите няколко обяви безплатни"/>Първите няколко обяви безплатни</label>
+<label class="option"><input name="11. Предпочитан модел" type="radio" value="Малка такса за всяка обява"/>Малка такса за всяка обява</label>
+<label class="option"><input name="11. Предпочитан модел" type="radio" value="Месечен абонамент"/>Месечен абонамент</label>
+<label class="option"><input name="11. Предпочитан модел" type="radio" value="Само платени promoted listings"/>Само платени promoted listings</label>
+<label class="option"><input name="11. Предпочитан модел" type="radio" value="Не бих плащал/а"/>Не бих плащал/а</label>
+</div>
+</div>
+<div class="question">
+<span class="question-title">12. Има ли нещо друго, което бихте искали да добавите?</span>
+<p class="hint">По желание. Може да споделите проблем, идея или нещо, което ви липсва в сегашните групи и платформи.</p>
+<textarea name="12. Допълнителен коментар" placeholder="Вашият коментар..."></textarea>
+</div>
+<div class="actions">
+<div class="status" id="status"></div>
+<button id="submitBtn" type="submit">Изпрати отговорите</button>
+<p class="privacy">Не събираме лични данни. Отговорите ще се използват само за валидиране на идеята.</p>
+</div>
+</form>
+<footer>Благодарим ви за отделеното време 💛</footer>
+</main>
+<script>
+    const form = document.getElementById('surveyForm');
+    const statusEl = document.getElementById('status');
+    const submitBtn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', async function (event) {
+      event.preventDefault();
+      statusEl.className = 'status';
+      statusEl.textContent = '';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Изпращане...';
+
+      const formData = new FormData(form);
+      const object = Object.fromEntries(formData);
+
+      // Preserve multiple checkbox values with same name
+      for (const key of formData.keys()) {
+        const values = formData.getAll(key);
+        if (values.length > 1) object[key] = values.join(', ');
+      }
+
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(object)
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          statusEl.className = 'status success';
+          statusEl.textContent = 'Благодарим! Вашите отговори бяха изпратени успешно.';
+          form.reset();
+        } else {
+          throw new Error(result.message || 'Неуспешно изпращане.');
+        }
+      } catch (error) {
+        statusEl.className = 'status error';
+        statusEl.textContent = 'Възникна проблем при изпращането. Моля, опитайте отново.';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Изпрати отговорите';
+      }
+    });
+  </script>
+</body>
+</html>
